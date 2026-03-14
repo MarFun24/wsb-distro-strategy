@@ -8,11 +8,11 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --dk:#0A1628;--nv:#0F1D35;--mn:#162544;--dp:#0D1E38;
-  --tl:#1A9E8F;--tlL:#22C4B0;--tlD:#148578;
+  --dk:#0A1628;--nv:#0F1D35;--mn:#162544;
+  --tl:#1A9E8F;--tlL:#22C4B0;
   --tlG:rgba(26,158,143,0.12);--tlB:rgba(26,158,143,0.25);
-  --wh:#FFFFFF;--sw:rgba(255,255,255,0.88);--lw:rgba(255,255,255,0.6);
-  --lg:#94A3B8;--mg:#64748B;--dg:#475569;
+  --wh:#FFFFFF;--sw:rgba(255,255,255,0.88);
+  --lg:#94A3B8;--mg:#64748B;
   --fw:rgba(255,255,255,0.04);--brd:rgba(255,255,255,0.08);
   --amber:#F59E0B;--amberL:#FBBF24;--pink:#EC4899;--pinkL:#F472B6;
   --blue:#3B82F6;--blueL:#93C5FD;--red:#EF4444;--redL:#F87171;
@@ -20,16 +20,23 @@
 }
 html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-family:'Inter',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 
-/* ========== SLIDE CONTAINER ========== */
-.deck{display:flex;height:100vh;transition:transform 0.6s cubic-bezier(0.4,0,0.2,1);will-change:transform}
-.slide{min-width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 60px 70px;position:relative;overflow-y:auto;overflow-x:hidden}
+/* ========== DECK ========== */
+.deck{display:flex;height:100vh;transition:transform 0.55s cubic-bezier(0.4,0,0.2,1);will-change:transform}
+.slide{min-width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;padding:48px 60px 72px;position:relative;overflow-y:auto;overflow-x:hidden}
 .slide-inner{max-width:1100px;width:100%;position:relative}
 
-/* ========== PROGRESS BAR ========== */
-.progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--tl),var(--tlL));z-index:300;transition:width 0.6s cubic-bezier(0.4,0,0.2,1)}
+/* ========== PROGRESS ========== */
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--tl),var(--tlL));z-index:300;transition:width 0.55s cubic-bezier(0.4,0,0.2,1)}
 
-/* ========== NAV ========== */
-.deck-nav{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200;display:flex;align-items:center;gap:14px;background:rgba(10,22,40,0.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--tlB);border-radius:44px;padding:10px 20px;box-shadow:0 4px 24px rgba(0,0,0,0.4),0 0 0 1px rgba(26,158,143,0.1)}
+/* ========== BREADCRUMB NAV ========== */
+.breadcrumb{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:250;display:flex;gap:2px;background:rgba(10,22,40,0.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--brd);border-radius:32px;padding:4px;max-width:calc(100vw - 24px);overflow-x:auto;scrollbar-width:none}
+.breadcrumb::-webkit-scrollbar{display:none}
+.bc-item{padding:6px 13px;border-radius:20px;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--mg);cursor:pointer;transition:all 0.3s;white-space:nowrap;border:none;background:transparent}
+.bc-item:hover{color:var(--lg);background:rgba(255,255,255,0.04)}
+.bc-item.active{background:var(--tl);color:var(--wh)}
+
+/* ========== BOTTOM NAV ========== */
+.deck-nav{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200;display:flex;align-items:center;gap:14px;background:rgba(10,22,40,0.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--tlB);border-radius:44px;padding:10px 20px;box-shadow:0 4px 24px rgba(0,0,0,0.4)}
 .nav-arrow{width:44px;height:44px;border-radius:50%;border:1px solid var(--tlB);background:var(--tlG);color:var(--tlL);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;font-size:20px;font-weight:600}
 .nav-arrow:hover{border-color:var(--tl);color:var(--wh);background:var(--tl)}
 .nav-arrow:disabled{opacity:0.2;cursor:default;background:transparent;border-color:var(--brd);color:var(--mg)}
@@ -39,7 +46,6 @@ html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-
 .mono{font-family:'DM Mono',monospace;font-size:11px;color:var(--tl);letter-spacing:0.15em;text-transform:uppercase;font-weight:500}
 .h1{font-family:'Sora',sans-serif;font-size:clamp(32px,4.5vw,54px);font-weight:700;line-height:1.1;letter-spacing:-0.02em}
 .h2{font-family:'Sora',sans-serif;font-size:clamp(24px,3vw,38px);font-weight:700;line-height:1.15;letter-spacing:-0.01em}
-.h3{font-family:'Sora',sans-serif;font-size:clamp(16px,1.8vw,22px);font-weight:600;line-height:1.25}
 .body{font-size:15px;color:var(--sw);line-height:1.75;max-width:640px}
 .body-sm{font-size:13.5px;color:var(--lg);line-height:1.65}
 .caption{font-family:'DM Mono',monospace;font-size:10px;color:var(--mg);letter-spacing:0.06em;text-transform:uppercase}
@@ -48,11 +54,11 @@ html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-
 .card{background:var(--fw);border:1px solid var(--brd);border-radius:var(--radius);padding:24px;transition:all 0.3s}
 .card:hover{border-color:rgba(255,255,255,0.14)}
 .card-tl{background:var(--tlG);border-color:var(--tlB)}
-.card-tl:hover{border-color:var(--tl)}
 
-/* ========== STAT BLOCKS ========== */
+/* ========== STAT ========== */
 .stat-val{font-family:'Sora',sans-serif;font-size:clamp(36px,4vw,52px);font-weight:800;background:linear-gradient(135deg,var(--tlL),var(--tl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1}
-.stat-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--mg);letter-spacing:0.08em;text-transform:uppercase;margin-top:6px}
+.stat-label{font-family:'Sora',sans-serif;font-size:14px;font-weight:600;color:var(--sw);margin-top:8px;letter-spacing:0.01em}
+.stat-sub{font-size:13px;color:var(--lg);margin-top:6px;line-height:1.5}
 
 /* ========== PLATFORM TAGS ========== */
 .ptag{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:var(--radius-xs);font-size:11px;font-weight:500;font-family:'DM Mono',monospace;letter-spacing:0.04em}
@@ -61,13 +67,13 @@ html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-
 .ptag-li{background:rgba(59,130,246,0.12);color:var(--blueL)}
 .ptag-yt{background:rgba(239,68,68,0.1);color:var(--redL)}
 
-/* ========== SYSTEM STEPS ========== */
+/* ========== SYSTEM ========== */
 .sys-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:28px 0}
 .sys-card{padding:28px 24px;background:var(--fw);border:1px solid var(--brd);border-radius:var(--radius);text-align:center;position:relative}
 .sys-card .sys-num{font-family:'Sora',sans-serif;font-size:36px;font-weight:800;color:var(--tlL);margin-bottom:8px;line-height:1}
 .sys-card .sys-label{font-family:'Sora',sans-serif;font-size:17px;font-weight:600;margin-bottom:8px}
 .sys-card .sys-desc{font-size:13.5px;color:var(--lg);line-height:1.6}
-.sys-connector{display:flex;align-items:center;justify-content:center;position:absolute;right:-14px;top:50%;transform:translateY(-50%);z-index:2;color:var(--tl);font-size:16px}
+.sys-connector{position:absolute;right:-14px;top:50%;transform:translateY(-50%);z-index:2;color:var(--tl);font-size:16px}
 
 /* ========== CALENDAR ========== */
 @keyframes fadeUp{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:translateY(0)}}
@@ -76,19 +82,16 @@ html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-
 .cal-tab:hover{border-color:rgba(255,255,255,0.16);background:rgba(255,255,255,0.04)}
 .cal-tab.active{background:var(--tl);border-color:var(--tl);color:var(--wh)}
 .cal-panel{background:var(--nv);border:1px solid var(--brd);border-radius:var(--radius);padding:24px;animation:fadeUp 0.35s ease}
-
-/* Calendar timeline */
-.cal-timeline{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
-.cal-day{display:grid;grid-template-columns:60px 1fr;gap:0;align-items:stretch;min-height:44px}
-.cal-day-label{display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:12px;font-weight:600;color:var(--sw);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);border-radius:var(--radius-xs) 0 0 var(--radius-xs);padding:8px}
-.cal-day-content{display:flex;align-items:center;gap:6px;padding:8px 12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-left:none;border-radius:0 var(--radius-xs) var(--radius-xs) 0;flex-wrap:wrap}
-.cal-item{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:var(--radius-xs);font-size:11px;font-weight:500;line-height:1.3}
+.cal-timeline{display:flex;flex-direction:column;gap:4px}
+.cal-day{display:grid;grid-template-columns:52px 1fr;gap:0;align-items:stretch;min-height:38px}
+.cal-day-label{display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:11px;font-weight:600;color:var(--sw);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);border-radius:var(--radius-xs) 0 0 var(--radius-xs);padding:6px}
+.cal-day-content{display:flex;align-items:center;gap:5px;padding:6px 10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-left:none;border-radius:0 var(--radius-xs) var(--radius-xs) 0;flex-wrap:wrap}
+.cal-item{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:var(--radius-xs);font-size:10px;font-weight:500;line-height:1.3}
 .ci-video{background:linear-gradient(135deg,rgba(26,158,143,0.25),rgba(34,196,176,0.12));border:1px solid var(--tlB);color:var(--tlL);font-family:'Sora',sans-serif;font-weight:600}
 .ci-support{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--lg)}
 .ci-agent{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);color:var(--amberL)}
-.ci-plat{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.04em;opacity:0.7;margin-left:2px}
+.ci-plat{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.04em;opacity:0.7}
 
-/* Video expand */
 .vid-card{background:rgba(255,255,255,0.03);border:1px solid var(--brd);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:6px;cursor:pointer;transition:all 0.3s}
 .vid-card:hover{border-color:var(--tlB);background:rgba(26,158,143,0.03)}
 .vid-card.open{background:var(--tlG);border-color:var(--tlB)}
@@ -97,32 +100,22 @@ html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-
 .vid-arrow{color:var(--tl);font-size:13px;transition:transform 0.3s;flex-shrink:0}
 .vid-card.open .vid-arrow{transform:rotate(90deg)}
 
-/* ========== AGENT CARDS ========== */
-.agent-card{background:var(--fw);border:1px solid var(--brd);border-radius:var(--radius);padding:22px;transition:all 0.3s;cursor:pointer}
-.agent-card:hover{border-color:rgba(255,255,255,0.14)}
-.agent-card.open{border-color:var(--tlB);background:rgba(26,158,143,0.04)}
-.agent-card .ac-detail{max-height:0;overflow:hidden;opacity:0;transition:max-height 0.45s ease,opacity 0.25s ease 0.08s}
-.agent-card.open .ac-detail{max-height:400px;opacity:1}
-
-/* ========== REACH CALC ========== */
+/* ========== REACH ========== */
 .reach-slider{-webkit-appearance:none;appearance:none;width:100%;height:8px;background:rgba(255,255,255,0.08);border-radius:4px;outline:none;cursor:pointer}
 .reach-slider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--tlL);cursor:pointer;border:3px solid var(--dk);box-shadow:0 0 0 2px var(--tl),0 4px 12px rgba(26,158,143,0.3)}
 .reach-card{text-align:center;padding:24px 16px;border-radius:var(--radius);border:1px solid var(--brd);background:var(--fw)}
 .reach-card.hl{background:var(--tlG);border-color:var(--tlB)}
 
-/* ========== FUNNEL ========== */
-.funnel{display:flex;align-items:stretch;gap:0;margin:20px 0}
-.funnel-step{flex:1;padding:18px 16px;position:relative;border:1px solid transparent}
-.funnel-step:first-child{border-radius:var(--radius) 0 0 var(--radius)}
-.funnel-step:last-child{border-radius:0 var(--radius) var(--radius) 0}
-.funnel-step::after{content:'';position:absolute;right:-1px;top:50%;transform:translateY(-50%);width:0;height:0;border-top:12px solid transparent;border-bottom:12px solid transparent;z-index:2}
-.funnel-step:last-child::after{display:none}
-.f1{background:rgba(26,158,143,0.06)}.f1::after{border-left:12px solid rgba(26,158,143,0.12)}
-.f2{background:rgba(59,130,246,0.05)}.f2::after{border-left:12px solid rgba(59,130,246,0.1)}
-.f3{background:rgba(245,158,11,0.05)}.f3::after{border-left:12px solid rgba(245,158,11,0.1)}
-.f4{background:rgba(236,72,153,0.05)}
+/* ========== FUNNEL CARDS ========== */
+.funnel-card{border:1px solid var(--brd);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden;transition:all 0.3s;cursor:pointer}
+.funnel-card:hover{border-color:rgba(255,255,255,0.14)}
+.funnel-card.open{border-color:var(--tlB)}
+.funnel-head{padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;transition:background 0.3s}
+.funnel-card.open .funnel-head{background:rgba(26,158,143,0.04)}
+.funnel-body{max-height:0;overflow:hidden;opacity:0;transition:max-height 0.45s ease,opacity 0.3s ease 0.1s}
+.funnel-card.open .funnel-body{max-height:300px;opacity:1}
 
-/* ========== INFRASTRUCTURE ACCORDIONS ========== */
+/* ========== INFRA ACCORDIONS ========== */
 .infra-acc{border:1px solid var(--brd);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden;transition:all 0.3s}
 .infra-acc:hover{border-color:rgba(255,255,255,0.14)}
 .infra-acc.open{border-color:var(--tlB)}
@@ -136,7 +129,7 @@ html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-
 .impl-text{font-size:12.5px;color:var(--sw);line-height:1.55}
 .tool-tag{display:inline-block;padding:2px 7px;border-radius:4px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);font-family:'DM Mono',monospace;font-size:9px;color:var(--lg);margin:2px 2px 2px 0}
 
-/* ========== STEP LIST ========== */
+/* ========== STEPS ========== */
 .step-item{display:flex;gap:18px;margin-bottom:20px;align-items:flex-start}
 .step-num{width:40px;height:40px;border-radius:12px;background:var(--tlG);border:1px solid var(--tlB);display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:17px;font-weight:700;color:var(--tlL);flex-shrink:0}
 
@@ -149,23 +142,22 @@ html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-
 
 /* ========== RESPONSIVE ========== */
 @media(max-width:768px){
-  .slide{padding:24px 24px 70px}
+  .slide{padding:24px 24px 72px}
   .sys-grid{grid-template-columns:1fr!important}.sys-connector{display:none}
-  .funnel{flex-direction:column;gap:4px}.funnel-step{border-radius:var(--radius-sm)!important}.funnel-step::after{display:none}
   .grid-3,.grid-4{grid-template-columns:1fr!important}
   .grid-2{grid-template-columns:1fr!important}
   .deck-nav{bottom:10px;padding:5px 10px;gap:4px}
   .slide-label{display:none}
-  .cal-day{grid-template-columns:48px 1fr}
-}
-@media(max-width:480px){
-  .slide{padding:20px 16px 70px}
+  .breadcrumb{top:6px;padding:3px}.bc-item{font-size:10px;padding:5px 9px}
+  .cal-day{grid-template-columns:42px 1fr}
+  .es-grid{grid-template-columns:1fr!important}
 }
 </style>
 </head>
 <body>
 
 <div class="progress-bar" id="progressBar"></div>
+<div class="breadcrumb" id="breadcrumb"></div>
 
 <div class="deck" id="deck">
 
@@ -187,7 +179,32 @@ html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-
   </div>
 </div>
 
-<!-- ==================== SLIDE 1: THE ASSET ==================== -->
+<!-- ==================== SLIDE 1: EXECUTIVE SUMMARY ==================== -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="mono" style="margin-bottom:12px">Executive Summary</div>
+    <h2 class="h2" style="margin-bottom:20px">The plan in 60 seconds</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px" class="es-grid grid-2">
+      <div>
+        <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:600;color:var(--tlL);margin-bottom:10px">What we have</div>
+        <p style="font-size:14px;color:var(--sw);line-height:1.7;margin-bottom:20px">Starting with 11 short-form videos, 200+ event photos, and a network of 35,000 active agents, WSB has the raw material for a content engine that most organizations would spend months building from scratch.</p>
+        <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:600;color:var(--tlL);margin-bottom:10px">What we do</div>
+        <p style="font-size:14px;color:var(--sw);line-height:1.7">Distribute that content across Instagram, TikTok (new channel), LinkedIn, and YouTube Shorts over six structured weeks. Each video drop is supported by surrounding content and amplified through agent sharing kits, turning one post into thousands.</p>
+      </div>
+      <div>
+        <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:600;color:var(--tlL);margin-bottom:10px">How it converts</div>
+        <p style="font-size:14px;color:var(--sw);line-height:1.7;margin-bottom:20px">Every piece of content funnels toward one goal: agent recruitment. Tracked links, a dedicated landing page, and agent attribution connect views to engagement to applications.</p>
+        <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:600;color:var(--tlL);margin-bottom:10px">The multiplier</div>
+        <p style="font-size:14px;color:var(--sw);line-height:1.7">If just 10% of agents share a single post, WSB reaches 1.75 million people at near-zero cost. The agent network is the distribution advantage.</p>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:24px">
+      <p>The following slides break down each component in detail: assets, system, platforms, weekly calendar, agent playbook, reach projections, measurement framework, and tracking infrastructure.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 2: THE ASSET ==================== -->
 <div class="slide">
   <div class="slide-inner">
     <div class="mono" style="margin-bottom:12px">What We're Working With</div>
@@ -196,47 +213,33 @@ html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px" class="grid-3">
       <div class="card card-tl" style="text-align:center;padding:32px 20px">
         <div class="stat-val">11</div>
-        <div class="stat-label" style="margin-top:8px">Videos to Start</div>
-        <p style="font-size:13px;color:var(--lg);margin-top:8px;line-height:1.5">Short-form portrait reels (~60 seconds). Ready for Instagram, TikTok, LinkedIn, and YouTube Shorts. More content can be added to this framework as it's produced.</p>
+        <div class="stat-label">Videos to Start</div>
+        <p class="stat-sub">Short-form portrait reels (~60s). Ready for all four platforms. More content slots into this framework as it's produced.</p>
       </div>
       <div class="card" style="text-align:center;padding:32px 20px">
         <div class="stat-val">200+</div>
-        <div class="stat-label" style="margin-top:8px">Event Photos</div>
-        <p style="font-size:13px;color:var(--lg);margin-top:8px;line-height:1.5">High-quality imagery from WSB events. Used as carousels, quote cards, Stories, and supporting content between video drops.</p>
+        <div class="stat-label">Event Photos</div>
+        <p class="stat-sub">High-quality imagery from WSB events. Used as carousels, quote cards, Stories, and supporting content between video drops.</p>
       </div>
       <div class="card" style="text-align:center;padding:32px 20px">
         <div class="stat-val">35K</div>
-        <div class="stat-label" style="margin-top:8px">Active Agents</div>
-        <p style="font-size:13px;color:var(--lg);margin-top:8px;line-height:1.5">A built-in distribution network. When agents share to their personal accounts, reach multiplies at zero media cost.</p>
+        <div class="stat-label">Active Agents</div>
+        <p class="stat-sub">A built-in distribution network. When agents share to their personal accounts, reach multiplies at zero media cost.</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 2: THE SYSTEM ==================== -->
+<!-- ==================== SLIDE 3: THE SYSTEM ==================== -->
 <div class="slide" style="background:radial-gradient(ellipse at 70% 50%,rgba(26,158,143,0.06) 0%,transparent 50%)">
   <div class="slide-inner">
     <div class="mono" style="margin-bottom:12px">The System</div>
     <h2 class="h2" style="margin-bottom:12px">Three steps, repeated every week</h2>
     <p class="body" style="margin-bottom:8px">Every piece of content follows the same cycle. This is the operating rhythm for all six weeks, starting with the first 11 videos and designed to scale as new content is produced.</p>
     <div class="sys-grid">
-      <div class="sys-card">
-        <div class="sys-num">1</div>
-        <div class="sys-label">Publish</div>
-        <div class="sys-desc">Content goes live on WSB's channels on a set schedule, across the right platforms for each piece.</div>
-        <div class="sys-connector">&#10140;</div>
-      </div>
-      <div class="sys-card">
-        <div class="sys-num">2</div>
-        <div class="sys-label">Amplify</div>
-        <div class="sys-desc">Agents receive ready-to-share kits and post to their own networks, turning one post into thousands.</div>
-        <div class="sys-connector">&#10140;</div>
-      </div>
-      <div class="sys-card">
-        <div class="sys-num">3</div>
-        <div class="sys-label">Measure</div>
-        <div class="sys-desc">Track performance across every platform. Optimize what's working. Report weekly and adjust.</div>
-      </div>
+      <div class="sys-card"><div class="sys-num">1</div><div class="sys-label">Publish</div><div class="sys-desc">Content goes live on WSB's channels on a set schedule, across the right platforms for each piece.</div><div class="sys-connector">&#10140;</div></div>
+      <div class="sys-card"><div class="sys-num">2</div><div class="sys-label">Amplify</div><div class="sys-desc">Agents receive ready-to-share kits and post to their own networks, turning one post into thousands.</div><div class="sys-connector">&#10140;</div></div>
+      <div class="sys-card"><div class="sys-num">3</div><div class="sys-label">Measure</div><div class="sys-desc">Track performance across every platform. Optimize what's working. Report weekly and adjust.</div></div>
     </div>
     <div class="callout">
       <p>Between video drops, <strong style="color:var(--tlL)">supporting content</strong> keeps the audience engaged: photo carousels, quote cards, Stories, and polls. Think of these as the connective tissue that keeps the conversation going between each major video release.</p>
@@ -244,7 +247,7 @@ html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-
   </div>
 </div>
 
-<!-- ==================== SLIDE 3: PLATFORMS ==================== -->
+<!-- ==================== SLIDE 4: PLATFORMS ==================== -->
 <div class="slide">
   <div class="slide-inner">
     <div class="mono" style="margin-bottom:12px">Where It Goes</div>
@@ -252,10 +255,7 @@ html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-
     <p class="body" style="margin-bottom:28px">Not every video goes everywhere. Each platform reaches a different audience and serves a different purpose in the recruiting funnel.</p>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px" class="grid-2">
       <div class="card" style="border-left:3px solid var(--pink)">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-          <span class="ptag ptag-ig">Instagram</span>
-          <span style="font-size:12px;color:var(--mg)">All 11 videos</span>
-        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><span class="ptag ptag-ig">Instagram</span><span style="font-size:12px;color:var(--mg)">All 11 videos</span></div>
         <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:600;margin-bottom:5px">Primary hub</div>
         <p class="body-sm">Every video publishes here. Reels, Stories, carousels, and polls. Strongest platform for younger demographics and driving saves/shares.</p>
       </div>
@@ -269,18 +269,12 @@ html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-
         <p class="body-sm">A new channel for WSB. TikTok's algorithm-driven distribution means even brand new accounts can achieve significant reach from day one. This is where WSB reaches people who've never heard of it.</p>
       </div>
       <div class="card" style="border-left:3px solid var(--blue)">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-          <span class="ptag ptag-li">LinkedIn</span>
-          <span style="font-size:12px;color:var(--mg)">6 videos</span>
-        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><span class="ptag ptag-li">LinkedIn</span><span style="font-size:12px;color:var(--mg)">6 videos</span></div>
         <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:600;margin-bottom:5px">Professional credibility</div>
         <p class="body-sm">Reaches career-minded professionals considering a move. Financial education and life-stage content perform strongest here.</p>
       </div>
       <div class="card" style="border-left:3px solid var(--red)">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-          <span class="ptag ptag-yt">YouTube Shorts</span>
-          <span style="font-size:12px;color:var(--mg)">7 videos</span>
-        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><span class="ptag ptag-yt">YouTube Shorts</span><span style="font-size:12px;color:var(--mg)">7 videos</span></div>
         <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:600;margin-bottom:5px">Search + longevity</div>
         <p class="body-sm">YouTube content stays discoverable far longer than other platforms. Shorts feed into WSB's broader YouTube presence and surface in Google search.</p>
       </div>
@@ -288,28 +282,28 @@ html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-
   </div>
 </div>
 
-<!-- ==================== SLIDE 4: CALENDAR ==================== -->
+<!-- ==================== SLIDE 5: CALENDAR ==================== -->
 <div class="slide">
   <div class="slide-inner">
     <div class="mono" style="margin-bottom:12px">The Calendar</div>
     <h2 class="h2" style="margin-bottom:6px">Six weeks, fully mapped</h2>
-    <p style="font-size:13.5px;color:var(--lg);margin-bottom:16px">Select a week to see the daily breakdown. Click a video title for the full strategy.</p>
+    <p style="font-size:13.5px;color:var(--lg);margin-bottom:16px">Select a week to see what drops and when. Click a video for the full strategy.</p>
     <div class="cal-tabs" id="calTabs"></div>
     <div id="calPanel"></div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 5: AGENT PLAYBOOK ==================== -->
+<!-- ==================== SLIDE 6: AGENT PLAYBOOK ==================== -->
 <div class="slide" style="background:radial-gradient(ellipse at 20% 60%,rgba(245,158,11,0.05) 0%,transparent 50%)">
   <div class="slide-inner">
     <div class="mono" style="margin-bottom:12px">Agent Playbook</div>
     <h2 class="h2" style="margin-bottom:6px">Zero friction for agents</h2>
-    <p class="body" style="margin-bottom:20px">Nobody guesses what to share or how. Every video drop, agents get a ready-to-use kit. Click each item below to see exactly how it gets created and distributed.</p>
+    <p class="body" style="margin-bottom:20px">Nobody guesses what to share or how. Every video drop, agents get a ready-to-use kit. Click each item to see how it works.</p>
     <div id="agentAccordions"></div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 6: THE MULTIPLIER ==================== -->
+<!-- ==================== SLIDE 7: THE MULTIPLIER ==================== -->
 <div class="slide">
   <div class="slide-inner" style="text-align:center;display:flex;flex-direction:column;align-items:center">
     <div class="mono" style="margin-bottom:12px">The Multiplier Effect</div>
@@ -333,97 +327,56 @@ html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-
           <div class="caption" style="margin-top:4px">Potential Impressions</div>
         </div>
         <div class="reach-card">
-          <div style="font-family:'Sora',sans-serif;font-size:28px;font-weight:800;color:var(--tlL)" id="rCost">$0.003</div>
-          <div class="caption" style="margin-top:4px">Cost Per Impression<br><span style="font-size:9px;opacity:0.7">(vs $5 CPM paid)</span></div>
+          <div style="font-family:'Sora',sans-serif;font-size:28px;font-weight:800;color:var(--tlL)" id="rEngage">87.5K</div>
+          <div class="caption" style="margin-top:4px">Potential Engagements</div>
         </div>
       </div>
-      <p style="font-size:11px;color:var(--mg);font-style:italic;margin-top:14px">Based on 500 average connections per agent. Organic reach is free; comparison is to a $5 CPM paid benchmark.</p>
+      <p style="font-size:11px;color:var(--mg);font-style:italic;margin-top:14px">Based on 500 average connections per agent and a 5% engagement rate. All organic, zero media spend.</p>
     </div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 7: TRACKING - THE FUNNEL ==================== -->
+<!-- ==================== SLIDE 8: TRACKING - THE FUNNEL ==================== -->
 <div class="slide" style="background:radial-gradient(ellipse at 60% 30%,rgba(59,130,246,0.06) 0%,transparent 50%)">
   <div class="slide-inner">
     <div class="mono" style="margin-bottom:12px">Measuring What Matters</div>
     <h2 class="h2" style="margin-bottom:6px">Every view connects back to recruitment</h2>
-    <p class="body" style="margin-bottom:20px">Content without measurement is guesswork. This framework connects every view and share back to WSB's core goal: bringing in new agents. Here's the conversion path and what gets tracked at each stage.</p>
-    <div class="funnel">
-      <div class="funnel-step f1">
-        <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:600;color:var(--tl);margin-bottom:3px">Awareness</div>
-        <div style="font-size:11px;color:var(--lg);line-height:1.4">Content reaches new audiences</div>
-      </div>
-      <div class="funnel-step f2">
-        <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:600;color:var(--blue);margin-bottom:3px">Interest</div>
-        <div style="font-size:11px;color:var(--lg);line-height:1.4">Viewers engage and follow</div>
-      </div>
-      <div class="funnel-step f3">
-        <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:600;color:var(--amber);margin-bottom:3px">Consideration</div>
-        <div style="font-size:11px;color:var(--lg);line-height:1.4">Prospects visit and inquire</div>
-      </div>
-      <div class="funnel-step f4">
-        <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:600;color:var(--pink);margin-bottom:3px">Recruitment</div>
-        <div style="font-size:11px;color:var(--lg);line-height:1.4">Prospect becomes an agent</div>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px" class="grid-4">
-      <div class="card" style="padding:14px;text-align:center"><div class="caption" style="color:var(--tl);margin-bottom:5px">Awareness</div><div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:600;margin-bottom:3px">Reach & Views</div><p style="font-size:11px;color:var(--lg);line-height:1.4">Total views, unique reach, impressions. Split by organic vs. agent-amplified.</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="caption" style="color:var(--blue);margin-bottom:5px">Interest</div><div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:600;margin-bottom:3px">Engagement & Saves</div><p style="font-size:11px;color:var(--lg);line-height:1.4">Likes, comments, shares, saves. Save rate is the strongest signal of content value.</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="caption" style="color:var(--amber);margin-bottom:5px">Consideration</div><div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:600;margin-bottom:3px">Clicks & Page Visits</div><p style="font-size:11px;color:var(--lg);line-height:1.4">Link clicks from bio, Stories, DMs. Landing page visits. Info session registrations.</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="caption" style="color:var(--pink);margin-bottom:5px">Recruitment</div><div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:600;margin-bottom:3px">Applications</div><p style="font-size:11px;color:var(--lg);line-height:1.4">New agent sign-ups attributed to content and to individual referring agents.</p></div>
-    </div>
+    <p class="body" style="margin-bottom:20px">Content without measurement is guesswork. Click each stage to see what gets tracked and why it matters.</p>
+    <div id="funnelCards"></div>
     <div class="callout" style="margin-top:16px">
       <p><strong style="color:var(--tlL)">Weekly reporting cadence:</strong> A standing report goes out every Friday covering what was published, how it performed across platforms, agent sharing activity, funnel metrics, and what to adjust the following week.</p>
     </div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 8: TRACKING - INFRASTRUCTURE ==================== -->
+<!-- ==================== SLIDE 9: TRACKING - INFRASTRUCTURE ==================== -->
 <div class="slide">
   <div class="slide-inner">
-    <div class="mono" style="margin-bottom:12px">Tracking Infrastructure</div>
-    <h2 class="h2" style="margin-bottom:6px">Four things that make it all measurable</h2>
-    <p class="body" style="margin-bottom:20px">The funnel only works if the right tracking infrastructure is in place. Click each item below to see exactly what gets built and how.</p>
+    <div class="mono" style="margin-bottom:12px">Behind the Scenes</div>
+    <h2 class="h2" style="margin-bottom:6px">The tracking system that makes it work</h2>
+    <div class="callout" style="margin-bottom:20px">
+      <p style="font-size:13px"><strong style="color:var(--tlL)">Note:</strong> This section covers the technical infrastructure that powers the measurement framework on the previous slide. This is what gets built and managed behind the scenes. WSB leadership doesn't need to manage any of this directly.</p>
+    </div>
     <div id="infraAccordions"></div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 9: NEXT STEPS ==================== -->
+<!-- ==================== SLIDE 10: NEXT STEPS ==================== -->
 <div class="slide">
   <div class="slide-inner">
     <div class="mono" style="margin-bottom:12px">Next Steps</div>
     <h2 class="h2" style="margin-bottom:24px">Four steps to launch</h2>
     <div style="max-width:640px">
-      <div class="step-item">
-        <div class="step-num">1</div>
-        <div><div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:600;margin-bottom:4px">Review and lock the calendar</div><p class="body-sm">Walk through the six-week plan together. Confirm video sequencing and weekly themes.</p></div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">2</div>
-        <div><div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:600;margin-bottom:4px">Set up internal channels</div><p class="body-sm">Confirm how share kits reach agents (email, app, internal comms). Build templates and tracking links.</p></div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">3</div>
-        <div><div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:600;margin-bottom:4px">Align and mobilize social / comms team</div><p class="body-sm">Brief WSB's internal social media and communications teams on the calendar, posting cadence, and agent kit distribution process. Ensure everyone knows their role before Week 1.</p></div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">4</div>
-        <div><div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:600;margin-bottom:4px">Week 1 goes live</div><p class="body-sm">Content publishes. Agent kits go out same day. Tracking starts immediately.</p></div>
-      </div>
+      <div class="step-item"><div class="step-num">1</div><div><div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:600;margin-bottom:4px">Review and lock the calendar</div><p class="body-sm">Walk through the six-week plan together. Confirm video sequencing and weekly themes.</p></div></div>
+      <div class="step-item"><div class="step-num">2</div><div><div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:600;margin-bottom:4px">Set up internal channels</div><p class="body-sm">Confirm how share kits reach agents (email, app, internal comms). Build templates and tracking links.</p></div></div>
+      <div class="step-item"><div class="step-num">3</div><div><div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:600;margin-bottom:4px">Align and mobilize social / comms team</div><p class="body-sm">Brief WSB's internal social media and communications teams on the calendar, posting cadence, and agent kit distribution process. Ensure everyone knows their role before Week 1.</p></div></div>
+      <div class="step-item"><div class="step-num">4</div><div><div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:600;margin-bottom:4px">Week 1 goes live</div><p class="body-sm">Content publishes. Agent kits go out same day. Tracking starts immediately.</p></div></div>
     </div>
     <div class="contact-card" style="margin-top:28px">
       <div class="mono" style="font-size:10px;margin-bottom:18px">Your Tropoly Team</div>
       <div style="display:flex;gap:48px;flex-wrap:wrap;margin-bottom:20px">
-        <div>
-          <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:600">Mark Funston</div>
-          <div style="font-size:13px;color:var(--lg);margin-top:3px">Partner, Marketing &amp; Infrastructure</div>
-          <div style="font-size:13px;color:var(--tlL);margin-top:4px">mark@tropoly.io</div>
-        </div>
-        <div>
-          <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:600">Neel Singh</div>
-          <div style="font-size:13px;color:var(--lg);margin-top:3px">Managing Partner, Strategy &amp; Operations</div>
-          <div style="font-size:13px;color:var(--tlL);margin-top:4px">neel@tropoly.io</div>
-        </div>
+        <div><div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:600">Mark Funston</div><div style="font-size:13px;color:var(--lg);margin-top:3px">Partner, Marketing &amp; Infrastructure</div><div style="font-size:13px;color:var(--tlL);margin-top:4px">mark@tropoly.io</div></div>
+        <div><div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:600">Neel Singh</div><div style="font-size:13px;color:var(--lg);margin-top:3px">Managing Partner, Strategy &amp; Operations</div><div style="font-size:13px;color:var(--tlL);margin-top:4px">neel@tropoly.io</div></div>
       </div>
       <div style="display:flex;align-items:center;gap:12px">
         <img src="https://res.cloudinary.com/ded9cb1wd/image/upload/v1772560400/Tropoly-Logo-Shaded-White_zju5ox.png" alt="Tropoly" style="height:26px;opacity:0.6">
@@ -435,7 +388,6 @@ html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-
 
 </div><!-- /deck -->
 
-<!-- ========== NAV ========== -->
 <div class="deck-nav" id="deckNav">
   <button class="nav-arrow" id="prevBtn" onclick="goSlide(current-1)">&#8592;</button>
   <div class="slide-label" id="slideLabel">Title</div>
@@ -443,9 +395,6 @@ html,body{height:100%;overflow:hidden;background:var(--dk);color:var(--wh);font-
 </div>
 
 <script>
-// =============================================
-// DATA
-// =============================================
 const platLabel={ig:'Instagram',tt:'TikTok',li:'LinkedIn',yt:'YT Shorts'};
 const videos=[
   {id:'01',t:'What Would You Tell Your Younger Self',cat:'Emotional',plats:['ig','tt','li'],shoulder:['Quote card carousel from speaker highlights','Photo dump: audience reactions','Story series: event highlights'],strategy:'Opens the campaign with emotional resonance. Universal relatability makes this the strongest agent-sharing content. Designed for saves and shares.'},
@@ -460,179 +409,59 @@ const videos=[
   {id:'10',t:'Event Montage',cat:'Event Energy',plats:['ig','tt','yt'],shoulder:['Best-moments photo carousel','Recap carousel with campaign stats','Story series: highlights'],strategy:'Closes the campaign with energy and proof. Shows what WSB events feel like from the inside.'},
   {id:'11',t:'WSB Launch 2026 Promo',cat:'Promotional',plats:['ig','tt','li','yt'],shoulder:['Trailer-style Story countdown','LinkedIn post: what comes next for WSB','Thank you + recognition post'],strategy:'Forward-looking closer. Converts remaining interest into action and sets up the next content cycle.'}
 ];
-
 const weeks=[
-  {n:1,theme:'Launch & First Impressions',videoIds:['01','03'],
-    days:[
-      {d:'Mon',items:[{type:'video',label:'V01: Younger Self',plats:['ig','tt','li']}]},
-      {d:'Tue',items:[{type:'support',label:'Quote carousel',plats:['ig']},{type:'support',label:'Quote card',plats:['li']}]},
-      {d:'Wed',items:[{type:'video',label:'V03: Get Ready With Me',plats:['ig','tt']},{type:'agent',label:'Agent Kit #1'}]},
-      {d:'Thu',items:[{type:'support',label:'Photo dump',plats:['ig']},{type:'support',label:'Event highlights',plats:['tt']}]},
-      {d:'Fri',items:[{type:'support',label:'Story series',plats:['ig']}]}
-    ],photos:'30-40 event photos for Stories, carousels, quote cards, and photo dumps',agent:'First share kit: both videos, 3 captions per video, 5 curated photos, step-by-step sharing instructions.'},
-  {n:2,theme:'Financial Education',videoIds:['02','05'],
-    days:[
-      {d:'Mon',items:[{type:'video',label:'V02: Money Hacks',plats:['ig','tt','yt']}]},
-      {d:'Tue',items:[{type:'support',label:'Infographic carousel',plats:['ig']},{type:'support',label:'Story poll',plats:['tt']}]},
-      {d:'Wed',items:[{type:'video',label:'V05: Educate Yourself',plats:['ig','tt','li','yt']},{type:'agent',label:'Agent Kit #2'}]},
-      {d:'Thu',items:[{type:'support',label:'Resource list',plats:['ig']},{type:'support',label:'Top 3 post',plats:['li']}]},
-      {d:'Fri',items:[{type:'support',label:'Save this for later',plats:['ig']}]}
-    ],photos:'20-30 photos for educational graphics and social proof',agent:'Education-focused kit. Agents add a personal story connecting WSB education to their own financial journey.'},
-  {n:3,theme:'Life Stages & Opportunity',videoIds:['04','08'],
-    days:[
-      {d:'Mon',items:[{type:'video',label:'V04: Starting a Family',plats:['ig','li','yt']}]},
-      {d:'Tue',items:[{type:'support',label:'Checklist carousel',plats:['ig']},{type:'support',label:'Text post',plats:['li']}]},
-      {d:'Wed',items:[{type:'video',label:'V08: Milestones for 20s',plats:['ig','tt','li','yt']},{type:'agent',label:'Agent Kit #3'}]},
-      {d:'Thu',items:[{type:'support',label:'Milestones carousel',plats:['ig']},{type:'support',label:'Save this',plats:['tt']},{type:'support',label:'Template post',plats:['li']}]},
-      {d:'Fri',items:[{type:'support',label:'Photo series: young professionals',plats:['ig']}]}
-    ],photos:'Young professionals, families, aspiration imagery',agent:'Recruiter-angle kit with DM template for direct outreach to engaged prospects.'},
-  {n:4,theme:'Daily Habits & Quick Tips',videoIds:['06','07'],
-    days:[
-      {d:'Mon',items:[{type:'video',label:'V06: Micro Habits',plats:['ig','tt','li']}]},
-      {d:'Tue',items:[{type:'support',label:"Do/Don't carousel",plats:['ig']},{type:'support',label:'Stitch prompt',plats:['tt']}]},
-      {d:'Wed',items:[{type:'video',label:'V07: Things to Avoid',plats:['ig','tt']},{type:'agent',label:'Agent Kit #4'}]},
-      {d:'Thu',items:[{type:'support',label:'Story poll',plats:['ig']},{type:'support',label:'Reaction cards',plats:['tt']},{type:'support',label:'Text post',plats:['li']}]},
-      {d:'Fri',items:[{type:'support',label:'Leaderboard update distributed'}]}
-    ],photos:'Quote cards, text overlay graphics, Stories poll backgrounds',agent:'Gamified share challenge with leaderboard. Top sharers get public recognition.'},
-  {n:5,theme:'Motivation & Call to Action',videoIds:['09'],
-    days:[
-      {d:'Mon',items:[{type:'support',label:'Countdown Stories',plats:['ig']},{type:'support',label:'Teaser clip',plats:['tt']}]},
-      {d:'Tue',items:[{type:'video',label:'V09: Change Your Life',plats:['ig','tt']},{type:'agent',label:'Agent Kit #5'}]},
-      {d:'Wed',items:[{type:'support',label:'Testimonial carousel',plats:['ig']}]},
-      {d:'Thu',items:[{type:'support',label:'Faces of WSB',plats:['ig']},{type:'support',label:'Stitch prompt',plats:['tt']}]},
-      {d:'Fri',items:[{type:'support',label:'Agent story highlights',plats:['ig']}]}
-    ],photos:'Agent spotlights, crowd energy shots, emotional event moments',agent:'Most important kit. Personal story template + direct link to WSB recruitment page.'},
-  {n:6,theme:'Celebrate & Look Forward',videoIds:['10','11'],
-    days:[
-      {d:'Mon',items:[{type:'video',label:'V10: Event Montage',plats:['ig','tt','yt']}]},
-      {d:'Tue',items:[{type:'support',label:'Recap carousel',plats:['ig']},{type:'support',label:'Best-of clips',plats:['tt']}]},
-      {d:'Wed',items:[{type:'video',label:'V11: Launch 2026',plats:['ig','tt','li','yt']},{type:'agent',label:'Final Kit #6'}]},
-      {d:'Thu',items:[{type:'support',label:'Thank you post',plats:['ig']},{type:'support',label:"What's next",plats:['li']},{type:'support',label:'Trailer',plats:['tt']}]},
-      {d:'Fri',items:[{type:'support',label:'Campaign recap + recognition'}]}
-    ],photos:'Final photo dump, recap content, celebration imagery, campaign stats',agent:'Final kit: thank you, campaign results, top-sharer recognition, and what comes next.'}
+  {n:1,theme:'Launch & First Impressions',videoIds:['01','03'],days:[{d:'Mon',items:[{type:'video',label:'V01: Younger Self',plats:['ig','tt','li']}]},{d:'Tue',items:[{type:'support',label:'Quote carousel',plats:['ig']},{type:'support',label:'Quote card',plats:['li']}]},{d:'Wed',items:[{type:'video',label:'V03: Get Ready With Me',plats:['ig','tt']},{type:'agent',label:'Agent Kit #1'}]},{d:'Thu',items:[{type:'support',label:'Photo dump',plats:['ig']},{type:'support',label:'Event highlights',plats:['tt']}]},{d:'Fri',items:[{type:'support',label:'Story series',plats:['ig']}]}],photos:'30-40 event photos for Stories, carousels, quote cards, and photo dumps',agent:'First share kit: both videos, 3 captions per video, 5 curated photos, step-by-step sharing instructions.'},
+  {n:2,theme:'Financial Education',videoIds:['02','05'],days:[{d:'Mon',items:[{type:'video',label:'V02: Money Hacks',plats:['ig','tt','yt']}]},{d:'Tue',items:[{type:'support',label:'Infographic carousel',plats:['ig']},{type:'support',label:'Story poll',plats:['tt']}]},{d:'Wed',items:[{type:'video',label:'V05: Educate Yourself',plats:['ig','tt','li','yt']},{type:'agent',label:'Agent Kit #2'}]},{d:'Thu',items:[{type:'support',label:'Resource list',plats:['ig']},{type:'support',label:'Top 3 post',plats:['li']}]},{d:'Fri',items:[{type:'support',label:'Save this for later',plats:['ig']}]}],photos:'20-30 photos for educational graphics and social proof',agent:'Education-focused kit. Agents add a personal story connecting WSB education to their own financial journey.'},
+  {n:3,theme:'Life Stages & Opportunity',videoIds:['04','08'],days:[{d:'Mon',items:[{type:'video',label:'V04: Starting a Family',plats:['ig','li','yt']}]},{d:'Tue',items:[{type:'support',label:'Checklist carousel',plats:['ig']},{type:'support',label:'Text post',plats:['li']}]},{d:'Wed',items:[{type:'video',label:'V08: Milestones for 20s',plats:['ig','tt','li','yt']},{type:'agent',label:'Agent Kit #3'}]},{d:'Thu',items:[{type:'support',label:'Milestones carousel',plats:['ig']},{type:'support',label:'Save this',plats:['tt']},{type:'support',label:'Template post',plats:['li']}]},{d:'Fri',items:[{type:'support',label:'Photo series: young professionals',plats:['ig']}]}],photos:'Young professionals, families, aspiration imagery',agent:'Recruiter-angle kit with DM template for direct outreach to engaged prospects.'},
+  {n:4,theme:'Daily Habits & Quick Tips',videoIds:['06','07'],days:[{d:'Mon',items:[{type:'video',label:'V06: Micro Habits',plats:['ig','tt','li']}]},{d:'Tue',items:[{type:'support',label:"Do/Don't carousel",plats:['ig']},{type:'support',label:'Stitch prompt',plats:['tt']}]},{d:'Wed',items:[{type:'video',label:'V07: Things to Avoid',plats:['ig','tt']},{type:'agent',label:'Agent Kit #4'}]},{d:'Thu',items:[{type:'support',label:'Story poll',plats:['ig']},{type:'support',label:'Reaction cards',plats:['tt']},{type:'support',label:'Text post',plats:['li']}]},{d:'Fri',items:[{type:'support',label:'Leaderboard update distributed'}]}],photos:'Quote cards, text overlay graphics, Stories poll backgrounds',agent:'Gamified share challenge with leaderboard. Top sharers get public recognition.'},
+  {n:5,theme:'Motivation & Call to Action',videoIds:['09'],days:[{d:'Mon',items:[{type:'support',label:'Countdown Stories',plats:['ig']},{type:'support',label:'Teaser clip',plats:['tt']}]},{d:'Tue',items:[{type:'video',label:'V09: Change Your Life',plats:['ig','tt']},{type:'agent',label:'Agent Kit #5'}]},{d:'Wed',items:[{type:'support',label:'Testimonial carousel',plats:['ig']}]},{d:'Thu',items:[{type:'support',label:'Faces of WSB',plats:['ig']},{type:'support',label:'Stitch prompt',plats:['tt']}]},{d:'Fri',items:[{type:'support',label:'Agent story highlights',plats:['ig']}]}],photos:'Agent spotlights, crowd energy shots, emotional event moments',agent:'Most important kit. Personal story template + direct link to WSB recruitment page.'},
+  {n:6,theme:'Celebrate & Look Forward',videoIds:['10','11'],days:[{d:'Mon',items:[{type:'video',label:'V10: Event Montage',plats:['ig','tt','yt']}]},{d:'Tue',items:[{type:'support',label:'Recap carousel',plats:['ig']},{type:'support',label:'Best-of clips',plats:['tt']}]},{d:'Wed',items:[{type:'video',label:'V11: Launch 2026',plats:['ig','tt','li','yt']},{type:'agent',label:'Final Kit #6'}]},{d:'Thu',items:[{type:'support',label:'Thank you post',plats:['ig']},{type:'support',label:"What's next",plats:['li']},{type:'support',label:'Trailer',plats:['tt']}]},{d:'Fri',items:[{type:'support',label:'Campaign recap + recognition'}]}],photos:'Final photo dump, recap content, celebration imagery, campaign stats',agent:'Final kit: thank you, campaign results, top-sharer recognition, and what comes next.'}
 ];
-
-// Agent playbook data - structured for two-column layout
 const agentData=[
-  {freq:'Every Video Drop',freqColor:'var(--tl)',title:'Share Kit',
-    summary:'Ready-to-post package delivered same day as each video release.',
-    left_title:'What agents receive',
-    left:[
-      'Direct link to the published video',
-      'Three pre-written captions (casual, professional, personal story)',
-      '3-5 curated photo assets sized per platform',
-      'Posting instructions: which platform, best times, hashtags'
-    ],
-    right_title:'How it gets to them',
-    right:[
-      'Each kit is assembled before the video goes live',
-      'Distributed through WSB\'s internal channels (email, app, or group chat)',
-      'Agents copy, paste, and publish in under a minute',
-      'Unique tracking links per kit enable attribution'
-    ]},
-  {freq:'Weekly',freqColor:'var(--amber)',title:'Leaderboard',
-    summary:'Public recognition for top-sharing agents drives participation.',
-    left_title:'What it tracks',
-    left:[
-      'Shares generated per agent or region',
-      'Link clicks driven by each agent',
-      'Form submissions and sign-ups attributed',
-      'Week-over-week participation trends'
-    ],
-    right_title:'How it works',
-    right:[
-      'Built automatically from agent tracking link data',
-      'Distributed every Friday alongside the performance report',
-      'Top performers named in internal comms',
-      'Optional: feature top sharers on WSB\'s own social channels'
-    ]},
-  {freq:'Bi-Weekly',freqColor:'var(--pink)',title:'Content Preview',
-    summary:'Agents vote on upcoming content, creating buy-in before it drops.',
-    left_title:'What agents see',
-    left:[
-      'Video thumbnails and short descriptions for the next wave',
-      'Themes and messaging angles for the upcoming week',
-      'Simple poll to vote on what excites them most'
-    ],
-    right_title:'Why it matters',
-    right:[
-      'Psychological ownership: agents who feel heard share more',
-      'Feedback flags content that resonates with specific audiences',
-      'Preview is created and distributed via WSB\'s internal channels',
-      'Takes agents under 2 minutes to participate'
-    ]},
-  {freq:'Ongoing',freqColor:'var(--blue)',title:'DM Templates',
-    summary:'Pre-written messages for direct outreach to interested prospects.',
-    left_title:'Three scenarios covered',
-    left:[
-      'Responding to someone who liked or commented on a video',
-      'Reaching out to someone who saved or shared content',
-      'Following up after an initial conversation'
-    ],
-    right_title:'How they\'re structured',
-    right:[
-      'Warm opening that references the content they engaged with',
-      'Bridge to WSB\'s opportunity (no hard sell)',
-      'Soft CTA: attend a session, hop on a call, visit a page',
-      'Agents personalize and send from their own accounts'
-    ]}
+  {freq:'Every Video Drop',freqColor:'var(--tl)',title:'Share Kit',summary:'Ready-to-post package delivered same day as each video release.',left_title:'What agents receive',left:['Direct link to the published video','Three pre-written captions (casual, professional, personal story)','3-5 curated photo assets sized per platform','Posting instructions: which platform, best times, hashtags'],right_title:'How it gets to them',right:['Each kit is assembled before the video goes live','Distributed through WSB\'s internal channels (email, app, or group chat)','Agents copy, paste, and publish in under a minute','Unique tracking links per kit enable attribution']},
+  {freq:'Weekly',freqColor:'var(--amber)',title:'Leaderboard',summary:'Public recognition for top-sharing agents drives participation.',left_title:'What it tracks',left:['Shares generated per agent or region','Link clicks driven by each agent','Form submissions and sign-ups attributed','Week-over-week participation trends'],right_title:'How it works',right:['Built automatically from agent tracking link data','Distributed every Friday alongside the performance report','Top performers named in internal comms','Optional: feature top sharers on WSB\'s own social channels']},
+  {freq:'Bi-Weekly',freqColor:'var(--pink)',title:'Content Preview',summary:'Agents vote on upcoming content, creating buy-in before it drops.',left_title:'What agents see',left:['Video thumbnails and short descriptions for the next wave','Themes and messaging angles for the upcoming week','Simple poll to vote on what excites them most'],right_title:'Why it matters',right:['Psychological ownership: agents who feel heard share more','Feedback flags content that resonates with specific audiences','Preview is created and distributed via WSB\'s internal channels','Takes agents under 2 minutes to participate']},
+  {freq:'Ongoing',freqColor:'var(--blue)',title:'DM Templates',summary:'Pre-written messages for direct outreach to interested prospects.',left_title:'Three scenarios covered',left:['Responding to someone who liked or commented on a video','Reaching out to someone who saved or shared content','Following up after an initial conversation'],right_title:'How they\'re structured',right:['Warm opening that references the content they engaged with','Bridge to WSB\'s opportunity (no hard sell)','Soft CTA: attend a session, hop on a call, visit a page','Agents personalize and send from their own accounts']}
 ];
-
-// Infrastructure data
+// Funnel data
+const funnelData=[
+  {stage:'Awareness',color:'var(--tl)',desc:'Content reaches new audiences through WSB channels and agent sharing',metrics:['Total video views and unique reach per post','Impressions split by organic vs. agent-amplified','Follower growth across all four platforms','Share volume and reshare chains']},
+  {stage:'Interest',color:'var(--blue)',desc:'Viewers engage, follow, save, and come back for more',metrics:['Engagement rate (likes, comments, shares) per post','Save rate, the strongest signal of content value','Story completion rate and poll participation','New followers attributed to specific content']},
+  {stage:'Consideration',color:'var(--amber)',desc:'Prospects take action: click, visit, register, or message an agent',metrics:['Link clicks from bio, Stories, and agent DMs','Landing page visits tracked by source and content piece','Info session registrations','Direct messages received by agents from prospects']},
+  {stage:'Recruitment',color:'var(--pink)',desc:'Prospect applies and becomes a new WSB agent',metrics:['Applications submitted via landing page','Applications attributed to specific content pieces','Applications attributed to individual referring agents','Conversion rate from page visit to application']}
+];
+// Infrastructure data (plain language)
 const infraData=[
-  {title:'UTM-Tagged Links for Every Post',
-    desc:'Every link shared in a bio, Story, or agent DM carries UTM parameters that identify the campaign, platform, content piece, and (where possible) the sharing agent. This is the foundation that makes everything else work.',
-    steps:[
-      {text:'Choose a URL shortener that supports UTM parameters and bulk link generation.',tools:['Bitly','Rebrandly','Short.io']},
-      {text:'Define a consistent naming convention. Example: <code>utm_source=instagram</code>, <code>utm_medium=reel</code>, <code>utm_campaign=wsb-wk1</code>, <code>utm_content=v01-younger-self</code>.'},
-      {text:'For agent attribution, append a unique identifier per agent or agent group: <code>utm_term=agent-[id]</code>. This ties shares back to individuals.'},
-      {text:'Generate all links in a spreadsheet before each week begins. Distribute the correct links inside each share kit so agents use the tracked URLs, not raw links.'},
-      {text:'Maintain a master UTM tracking sheet logging every link created, its parameters, and where it was distributed. This becomes the source of truth for attribution.'}
-    ]},
-  {title:'Centralized Analytics Dashboard',
-    desc:'A single view that pulls platform analytics (Instagram Insights, TikTok Analytics, LinkedIn Analytics, YouTube Studio) into one report. No logging into four tools to figure out what happened.',
-    steps:[
-      {text:'Connect all four platform accounts to a social media analytics tool that supports multi-platform reporting.',tools:['Sprout Social','Hootsuite Analytics','Metricool','Iconosquare']},
-      {text:'Alternatively, use a data aggregation tool that pulls platform APIs into a custom dashboard.',tools:['Google Looker Studio','Databox','Supermetrics']},
-      {text:'Configure the dashboard to show: total reach, impressions, engagement rate, saves, link clicks, and follower growth, broken down by platform and by content piece.'},
-      {text:'Add a Google Analytics view for the landing page to track UTM-sourced traffic alongside social metrics.'},
-      {text:'Set up automated weekly email reports so stakeholders get performance data without needing to log in.'}
-    ]},
-  {title:'Landing Page with Conversion Tracking',
-    desc:'A dedicated page where content-driven traffic lands, with clear calls to action and form tracking. This closes the loop between "someone watched a reel" and "someone applied to become an agent."',
-    steps:[
-      {text:'Build a dedicated landing page separate from the main WSB website. Keep it focused: one clear CTA (apply / learn more / attend an info session).',tools:['Unbounce','Carrd','Webflow','WordPress']},
-      {text:'Install tracking pixels: Meta Pixel (for Instagram attribution), TikTok Pixel, and LinkedIn Insight Tag. This enables retargeting and conversion tracking natively in each platform if paid promotion is added later.'},
-      {text:'Set up Google Analytics 4 event tracking on the landing page. Track: page_view (with UTM source), form_start, form_submit, and CTA clicks.',tools:['Google Analytics 4','Google Tag Manager']},
-      {text:'Create a confirmation page after form submission. This page is the "conversion" event that GA4 and the platform pixels count.'},
-      {text:'Test the full flow end to end: click a UTM link from a test post, verify the landing page loads with correct UTM parameters visible in GA4 real-time, fill out the form, and confirm the conversion event fires.'}
-    ]},
-  {title:'Agent Attribution System',
-    desc:'Give each agent (or agent group) unique referral links. This measures which agents are driving actual conversions, not just shares, and powers the leaderboard and recognition programs.',
-    steps:[
-      {text:'Decide the attribution granularity: individual agent links (ideal, more operational overhead) or team/group links (simpler, still useful).'},
-      {text:'Use the UTM shortener from step 1 to generate unique links per agent. Each agent\'s link has a unique <code>utm_term</code> value mapping to their name or ID.'},
-      {text:'Alternatively, use a referral tracking platform that automates link generation and tracks conversions per referrer.',tools:['ReferralCandy','FirstPromoter','PartnerStack']},
-      {text:'Distribute each agent\'s unique link as part of their share kit. Make it clear: "use this link, not the generic one." The leaderboard is built on this data.'},
-      {text:'Pull referral data weekly: which agents drove the most clicks, which drove form submissions, and which drove completed sign-ups. This feeds the leaderboard and recognition.'}
-    ]}
+  {title:'Tracked Links for Every Post',desc:'Every link shared in a bio, Story, or agent message carries tracking parameters that identify the campaign, platform, content piece, and sharing agent. This is the foundation that connects views to sign-ups.',steps:[{text:'Set up a link shortener that supports campaign tracking and bulk link generation.',tools:['Bitly','Rebrandly','Short.io']},{text:'Define a consistent naming system so every link identifies its source, platform, content piece, and week.'},{text:'For agent attribution, each agent (or agent group) gets a unique link that ties their shares back to actual results.'},{text:'Generate all links before each week begins and include the correct tracked links inside each share kit.'},{text:'Maintain a master tracking sheet logging every link created, its parameters, and where it was distributed.'}]},
+  {title:'Centralized Reporting Dashboard',desc:'A single view that pulls analytics from Instagram, TikTok, LinkedIn, and YouTube into one report. No logging into four separate tools to figure out what happened.',steps:[{text:'Connect all four platform accounts to a social media analytics tool.',tools:['Sprout Social','Hootsuite Analytics','Metricool','Iconosquare']},{text:'Alternatively, use a data tool that pulls platform data into a custom dashboard.',tools:['Google Looker Studio','Databox','Supermetrics']},{text:'Configure the dashboard to show: total reach, impressions, engagement, saves, link clicks, and follower growth by platform and content piece.'},{text:'Add website analytics for the landing page to track where visitors are coming from.'},{text:'Set up automated weekly email reports so stakeholders get data without logging in.'}]},
+  {title:'Landing Page with Sign-Up Tracking',desc:'A dedicated page where content-driven traffic lands, with a clear call to action and form tracking. This closes the loop between "someone watched a reel" and "someone applied to become an agent."',steps:[{text:'Build a dedicated landing page separate from the main WSB website. One clear CTA: apply, learn more, or attend an info session.',tools:['Unbounce','Carrd','Webflow','WordPress']},{text:'Install platform tracking pixels (Meta, TikTok, LinkedIn) for conversion tracking and potential retargeting.'},{text:'Set up event tracking: page views, form starts, form submissions, and CTA clicks.',tools:['Google Analytics 4','Google Tag Manager']},{text:'Create a confirmation page after form submission. This is the "conversion" event that all tracking systems count.'},{text:'Test the full flow end to end: click a tracked link, verify the landing page loads correctly, fill out the form, confirm the conversion fires.'}]},
+  {title:'Agent Referral Tracking',desc:'Give each agent (or agent group) unique referral links. This measures which agents are driving actual sign-ups, not just shares, and powers the leaderboard and recognition programs.',steps:[{text:'Decide the granularity: individual agent links (ideal) or team/group links (simpler, still useful).'},{text:'Generate unique links per agent using the link shortener. Each agent\'s link maps to their name or ID.'},{text:'Alternatively, use a dedicated referral tracking platform.',tools:['ReferralCandy','FirstPromoter','PartnerStack']},{text:'Distribute each agent\'s unique link as part of their share kit. The leaderboard is built from this data.'},{text:'Pull referral data weekly: which agents drove the most clicks, form submissions, and completed sign-ups.'}]}
 ];
-
-const slideNames=['Title','The Asset','The System','Platforms','Calendar','Agent Playbook','Multiplier','The Funnel','Infrastructure','Next Steps'];
+const slideNames=['Title','Summary','The Asset','The System','Platforms','Calendar','Agents','Multiplier','Funnel','Infrastructure','Next Steps'];
+const bcLabels=['Title','Summary','Assets','System','Platforms','Calendar','Agents','Multiplier','Measurement','Infrastructure','Next Steps'];
 
 // =============================================
-// SLIDE NAVIGATION
+// NAV
 // =============================================
 const deck=document.getElementById('deck');
 const slides=document.querySelectorAll('.slide');
 const totalSlides=slides.length;
 let current=0;
 let isTransitioning=false;
-
 const labelEl=document.getElementById('slideLabel');
 const prevBtn=document.getElementById('prevBtn');
 const nextBtn=document.getElementById('nextBtn');
 const progressBar=document.getElementById('progressBar');
+const bcEl=document.getElementById('breadcrumb');
+
+// Build breadcrumbs
+bcLabels.forEach((label,i)=>{
+  const btn=document.createElement('button');
+  btn.className='bc-item'+(i===0?' active':'');
+  btn.textContent=label;
+  btn.onclick=()=>goSlide(i);
+  bcEl.appendChild(btn);
+});
 
 function goSlide(n){
   if(isTransitioning||n<0||n>=totalSlides)return;
@@ -643,7 +472,8 @@ function goSlide(n){
   prevBtn.disabled=current===0;
   nextBtn.disabled=current===totalSlides-1;
   progressBar.style.width=((current/(totalSlides-1))*100)+'%';
-  setTimeout(()=>{isTransitioning=false},650);
+  bcEl.querySelectorAll('.bc-item').forEach((b,i)=>b.classList.toggle('active',i===current));
+  setTimeout(()=>{isTransitioning=false},600);
 }
 
 document.addEventListener('keydown',e=>{
@@ -651,6 +481,7 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft'){e.preventDefault();goSlide(current-1)}
 });
 
+// Touch
 let touchStartX=0;
 document.addEventListener('touchstart',e=>{touchStartX=e.changedTouches[0].screenX},{passive:true});
 document.addEventListener('touchend',e=>{
@@ -658,8 +489,10 @@ document.addEventListener('touchend',e=>{
   if(Math.abs(diff)>50){diff>0?goSlide(current+1):goSlide(current-1)}
 },{passive:true});
 
-let wheelTimer;
+// Trackpad/wheel — immediate with cooldown, no debounce delay
+let wheelCooldown=false;
 document.addEventListener('wheel',e=>{
+  if(wheelCooldown)return;
   const slide=slides[current];
   if(slide.scrollHeight>slide.clientHeight){
     const atTop=slide.scrollTop<=0;
@@ -667,59 +500,62 @@ document.addEventListener('wheel',e=>{
     if(e.deltaY<0&&!atTop)return;
     if(e.deltaY>0&&!atBottom)return;
   }
-  clearTimeout(wheelTimer);
-  wheelTimer=setTimeout(()=>{
-    if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.deltaY>0?goSlide(current+1):goSlide(current-1)}
+  const threshold=30;
+  if(Math.abs(e.deltaY)>threshold||Math.abs(e.deltaX)>threshold){
+    wheelCooldown=true;
+    if(Math.abs(e.deltaY)>=Math.abs(e.deltaX)){e.deltaY>0?goSlide(current+1):goSlide(current-1)}
     else{e.deltaX>0?goSlide(current+1):goSlide(current-1)}
-  },80);
+    setTimeout(()=>{wheelCooldown=false},700);
+  }
 },{passive:true});
 
 goSlide(0);
 
 // =============================================
-// CALENDAR (timeline format)
+// CALENDAR (videos first, then grid)
 // =============================================
 const calTabsEl=document.getElementById('calTabs');
 const calPanelEl=document.getElementById('calPanel');
-
 weeks.forEach((w,i)=>{
   const btn=document.createElement('button');
   btn.className='cal-tab'+(i===0?' active':'');
   btn.innerHTML=`Wk ${w.n}`;
-  btn.onclick=()=>switchWeek(i);
+  btn.onclick=()=>{calTabsEl.querySelectorAll('.cal-tab').forEach((t,j)=>t.classList.toggle('active',j===i));renderWeek(i)};
   calTabsEl.appendChild(btn);
 });
-
-function switchWeek(i){
-  calTabsEl.querySelectorAll('.cal-tab').forEach((t,j)=>t.classList.toggle('active',j===i));
-  renderWeek(i);
-}
 
 function renderWeek(i){
   const w=weeks[i];
   const wv=w.videoIds.map(id=>videos.find(v=>v.id===id));
-
   let html=`<div class="cal-panel">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
-      <div>
-        <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:600">Week ${w.n}: ${w.theme}</div>
-        <div style="font-size:12px;color:var(--lg);margin-top:2px">${wv.length} video${wv.length>1?'s':''} + supporting content</div>
-      </div>
-      <div style="display:flex;gap:10px;font-size:10px;color:var(--mg)">
-        <span style="display:inline-flex;align-items:center;gap:4px"><span style="width:7px;height:7px;border-radius:2px;background:linear-gradient(135deg,rgba(26,158,143,0.4),rgba(34,196,176,0.2));border:1px solid var(--tlB);display:inline-block"></span>Video</span>
-        <span style="display:inline-flex;align-items:center;gap:4px"><span style="width:7px;height:7px;border-radius:2px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:inline-block"></span>Supporting</span>
-        <span style="display:inline-flex;align-items:center;gap:4px"><span style="width:7px;height:7px;border-radius:2px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.25);display:inline-block"></span>Agent Kit</span>
-      </div>
+      <div><div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:600">Week ${w.n}: ${w.theme}</div><div style="font-size:12px;color:var(--lg);margin-top:2px">${wv.length} video${wv.length>1?'s':''} + supporting content</div></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px" class="grid-2">
       <div>`;
-
-  // LEFT: Timeline
+  // LEFT: Videos first
+  html+=`<div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:600;color:var(--sw);margin-bottom:8px">Videos This Week</div>`;
+  wv.forEach(v=>{
+    html+=`<div class="vid-card" onclick="this.classList.toggle('open')"><div style="display:flex;align-items:center;justify-content:space-between"><div><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:10px;font-family:'DM Mono',monospace;color:var(--tl);letter-spacing:0.06em;text-transform:uppercase">${v.cat} &middot; V${v.id}</span><span style="font-family:'Sora',sans-serif;font-size:14px;font-weight:600">${v.t}</span></div><div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:5px">${v.plats.map(p=>`<span class="ptag ptag-${p}" style="font-size:9px;padding:2px 7px">${platLabel[p]}</span>`).join('')}</div></div><span class="vid-arrow">&#9656;</span></div><div class="vid-expand"><div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--brd)"><p style="font-size:12.5px;color:var(--sw);line-height:1.6;margin-bottom:8px">${v.strategy}</p><div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--tl);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px">Supporting Content</div>${v.shoulder.map(s=>`<div style="display:flex;align-items:flex-start;gap:6px;margin-bottom:3px"><span style="color:var(--tl);font-size:7px;margin-top:5px;flex-shrink:0">&#9679;</span><span style="font-size:12px;color:var(--lg);line-height:1.5">${s}</span></div>`).join('')}</div></div></div>`;
+  });
+  // LEFT: Asset cards
+  html+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+    <div style="background:rgba(236,72,153,0.03);border:1px solid rgba(236,72,153,0.1);border-radius:var(--radius-xs);padding:10px 12px"><div class="caption" style="color:var(--pinkL);margin-bottom:3px;font-size:9px">Photos</div><p style="font-size:11px;color:var(--sw);line-height:1.4">${w.photos}</p></div>
+    <div style="background:rgba(245,158,11,0.03);border:1px solid rgba(245,158,11,0.1);border-radius:var(--radius-xs);padding:10px 12px"><div class="caption" style="color:var(--amberL);margin-bottom:3px;font-size:9px">Agent Kit</div><p style="font-size:11px;color:var(--sw);line-height:1.4">${w.agent}</p></div>
+  </div>`;
+  html+=`</div><div>`;
+  // RIGHT: Daily schedule with inline legend
+  html+=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+    <div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:600;color:var(--sw)">Daily Schedule</div>
+    <div style="display:flex;gap:8px;font-size:9px;color:var(--mg)">
+      <span style="display:inline-flex;align-items:center;gap:3px"><span style="width:6px;height:6px;border-radius:2px;background:linear-gradient(135deg,rgba(26,158,143,0.4),rgba(34,196,176,0.2));border:1px solid var(--tlB);display:inline-block"></span>Video</span>
+      <span style="display:inline-flex;align-items:center;gap:3px"><span style="width:6px;height:6px;border-radius:2px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:inline-block"></span>Support</span>
+      <span style="display:inline-flex;align-items:center;gap:3px"><span style="width:6px;height:6px;border-radius:2px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.25);display:inline-block"></span>Agent Kit</span>
+    </div>
+  </div>`;
   html+=`<div class="cal-timeline">`;
   w.days.forEach(day=>{
-    html+=`<div class="cal-day">
-      <div class="cal-day-label">${day.d}</div>
-      <div class="cal-day-content">`;
+    html+=`<div class="cal-day"><div class="cal-day-label">${day.d}</div><div class="cal-day-content">`;
     day.items.forEach(item=>{
       const cls=item.type==='video'?'ci-video':item.type==='support'?'ci-support':'ci-agent';
       const plats=item.plats?item.plats.map(p=>`<span class="ci-plat">${p.toUpperCase()}</span>`).join(' '):'';
@@ -727,151 +563,62 @@ function renderWeek(i){
     });
     html+=`</div></div>`;
   });
-  html+=`</div>`;
-
-  // LEFT: Bottom asset cards
-  html+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
-    <div style="background:rgba(236,72,153,0.03);border:1px solid rgba(236,72,153,0.1);border-radius:var(--radius-xs);padding:10px 12px">
-      <div class="caption" style="color:var(--pinkL);margin-bottom:3px;font-size:9px">Photos</div>
-      <p style="font-size:11px;color:var(--sw);line-height:1.4">${w.photos}</p>
-    </div>
-    <div style="background:rgba(245,158,11,0.03);border:1px solid rgba(245,158,11,0.1);border-radius:var(--radius-xs);padding:10px 12px">
-      <div class="caption" style="color:var(--amberL);margin-bottom:3px;font-size:9px">Agent Kit</div>
-      <p style="font-size:11px;color:var(--sw);line-height:1.4">${w.agent}</p>
-    </div>
-  </div>`;
-
-  html+=`</div><div>`;
-
-  // RIGHT: Video details
-  html+=`<div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--tl);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px">Videos This Week <span style="color:var(--mg)">(click to expand)</span></div>`;
-  wv.forEach(v=>{
-    html+=`<div class="vid-card" onclick="this.classList.toggle('open')">
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-            <span style="font-size:10px;font-family:'DM Mono',monospace;color:var(--tl);letter-spacing:0.06em;text-transform:uppercase">${v.cat} &middot; V${v.id}</span>
-            <span style="font-family:'Sora',sans-serif;font-size:14px;font-weight:600">${v.t}</span>
-          </div>
-          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:5px">${v.plats.map(p=>`<span class="ptag ptag-${p}" style="font-size:9px;padding:2px 7px">${platLabel[p]}</span>`).join('')}</div>
-        </div>
-        <span class="vid-arrow">&#9656;</span>
-      </div>
-      <div class="vid-expand">
-        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--brd)">
-          <p style="font-size:12.5px;color:var(--sw);line-height:1.6;margin-bottom:8px">${v.strategy}</p>
-          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--tl);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px">Supporting Content</div>
-          ${v.shoulder.map(s=>`<div style="display:flex;align-items:flex-start;gap:6px;margin-bottom:3px"><span style="color:var(--tl);font-size:7px;margin-top:5px;flex-shrink:0">&#9679;</span><span style="font-size:12px;color:var(--lg);line-height:1.5">${s}</span></div>`).join('')}
-        </div>
-      </div>
-    </div>`;
-  });
-
-  html+=`</div></div></div>`;
+  html+=`</div></div></div></div>`;
   calPanelEl.innerHTML=html;
 }
 renderWeek(0);
 
 // =============================================
-// AGENT PLAYBOOK (stacked accordions, one at a time, two-col bullets)
+// AGENT PLAYBOOK
 // =============================================
 const agentAccEl=document.getElementById('agentAccordions');
-agentData.forEach((a,i)=>{
+agentData.forEach(a=>{
   const acc=document.createElement('div');
   acc.className='infra-acc';
-  const leftBullets=a.left.map(b=>`<div style="display:flex;gap:7px;margin-bottom:5px;align-items:flex-start"><span style="color:var(--tl);font-size:6px;margin-top:6px;flex-shrink:0">&#9679;</span><span style="font-size:12.5px;color:var(--sw);line-height:1.5">${b}</span></div>`).join('');
-  const rightBullets=a.right.map(b=>`<div style="display:flex;gap:7px;margin-bottom:5px;align-items:flex-start"><span style="color:${a.freqColor};font-size:6px;margin-top:6px;flex-shrink:0">&#9679;</span><span style="font-size:12.5px;color:var(--sw);line-height:1.5">${b}</span></div>`).join('');
-  acc.innerHTML=`
-    <div class="infra-head" onclick="toggleAgent(this)">
-      <div style="display:grid;grid-template-columns:110px 1fr;gap:16px;align-items:center;flex:1">
-        <span class="caption" style="color:${a.freqColor};font-size:10px;white-space:nowrap">${a.freq}</span>
-        <div>
-          <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:600">${a.title}</div>
-          <div style="font-size:12.5px;color:var(--lg);margin-top:2px;line-height:1.45">${a.summary}</div>
-        </div>
-      </div>
-      <span class="vid-arrow" style="flex-shrink:0;margin-left:12px">&#9656;</span>
-    </div>
-    <div class="infra-body">
-      <div class="infra-content">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:14px" class="grid-2">
-          <div>
-            <div class="caption" style="color:var(--tl);margin-bottom:8px;font-size:9px">${a.left_title}</div>
-            ${leftBullets}
-          </div>
-          <div>
-            <div class="caption" style="color:${a.freqColor};margin-bottom:8px;font-size:9px">${a.right_title}</div>
-            ${rightBullets}
-          </div>
-        </div>
-      </div>
-    </div>`;
+  const lb=a.left.map(b=>`<div style="display:flex;gap:7px;margin-bottom:5px;align-items:flex-start"><span style="color:var(--tl);font-size:6px;margin-top:6px;flex-shrink:0">&#9679;</span><span style="font-size:12.5px;color:var(--sw);line-height:1.5">${b}</span></div>`).join('');
+  const rb=a.right.map(b=>`<div style="display:flex;gap:7px;margin-bottom:5px;align-items:flex-start"><span style="color:${a.freqColor};font-size:6px;margin-top:6px;flex-shrink:0">&#9679;</span><span style="font-size:12.5px;color:var(--sw);line-height:1.5">${b}</span></div>`).join('');
+  acc.innerHTML=`<div class="infra-head" onclick="toggleAgent(this)"><div style="display:grid;grid-template-columns:110px 1fr;gap:16px;align-items:center;flex:1"><span class="caption" style="color:${a.freqColor};font-size:10px;white-space:nowrap">${a.freq}</span><div><div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:600">${a.title}</div><div style="font-size:12.5px;color:var(--lg);margin-top:2px;line-height:1.45">${a.summary}</div></div></div><span class="vid-arrow" style="flex-shrink:0;margin-left:12px">&#9656;</span></div><div class="infra-body"><div class="infra-content"><div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:14px" class="grid-2"><div><div class="caption" style="color:var(--tl);margin-bottom:8px;font-size:9px">${a.left_title}</div>${lb}</div><div><div class="caption" style="color:${a.freqColor};margin-bottom:8px;font-size:9px">${a.right_title}</div>${rb}</div></div></div></div>`;
   agentAccEl.appendChild(acc);
 });
-
-function toggleAgent(head){
-  const acc=head.parentElement;
-  const wasOpen=acc.classList.contains('open');
-  agentAccEl.querySelectorAll('.infra-acc').forEach(a=>a.classList.remove('open'));
-  if(!wasOpen)acc.classList.add('open');
-}
+function toggleAgent(head){const acc=head.parentElement;const w=acc.classList.contains('open');agentAccEl.querySelectorAll('.infra-acc').forEach(a=>a.classList.remove('open'));if(!w)acc.classList.add('open')}
 
 // =============================================
-// INFRASTRUCTURE ACCORDIONS
+// FUNNEL CARDS
+// =============================================
+const funnelEl=document.getElementById('funnelCards');
+funnelData.forEach((f,i)=>{
+  const card=document.createElement('div');
+  card.className='funnel-card';
+  card.onclick=function(){const w=this.classList.contains('open');funnelEl.querySelectorAll('.funnel-card').forEach(c=>c.classList.remove('open'));if(!w)this.classList.add('open')};
+  card.innerHTML=`<div class="funnel-head"><div style="display:flex;align-items:center;gap:14px"><div style="width:32px;height:32px;border-radius:8px;background:${f.color};opacity:0.15;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:${f.color};opacity:1">${i+1}</div></div><div><div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:600;color:${f.color}">${f.stage}</div><div style="font-size:12.5px;color:var(--lg);margin-top:1px">${f.desc}</div></div></div><span class="vid-arrow" style="flex-shrink:0">&#9656;</span></div><div class="funnel-body"><div style="padding:0 18px 16px;border-top:1px solid rgba(255,255,255,0.04)"><div class="caption" style="color:${f.color};margin:12px 0 8px;font-size:9px">What gets measured</div>${f.metrics.map(m=>`<div style="display:flex;gap:7px;margin-bottom:4px;align-items:flex-start"><span style="color:${f.color};font-size:6px;margin-top:6px;flex-shrink:0">&#9679;</span><span style="font-size:12.5px;color:var(--sw);line-height:1.5">${m}</span></div>`).join('')}</div></div>`;
+  funnelEl.appendChild(card);
+});
+
+// =============================================
+// INFRASTRUCTURE
 // =============================================
 const infraEl=document.getElementById('infraAccordions');
 infraData.forEach((item,i)=>{
   const acc=document.createElement('div');
   acc.className='infra-acc';
-  acc.innerHTML=`
-    <div class="infra-head" onclick="toggleInfra(this)">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div style="width:28px;height:28px;border-radius:8px;background:var(--tlG);border:1px solid var(--tlB);display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--tlL);flex-shrink:0">${i+1}</div>
-        <div>
-          <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:600">${item.title}</div>
-          <div style="font-size:11px;color:var(--lg);margin-top:1px">${item.desc.substring(0,90)}...</div>
-        </div>
-      </div>
-      <span class="vid-arrow" style="flex-shrink:0">&#9656;</span>
-    </div>
-    <div class="infra-body">
-      <div class="infra-content">
-        <p style="font-size:12.5px;color:var(--sw);line-height:1.6;margin-top:12px;margin-bottom:4px">${item.desc}</p>
-        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--tl);letter-spacing:0.1em;text-transform:uppercase;margin:14px 0 4px">Implementation Steps</div>
-        ${item.steps.map((s,j)=>`
-          <div class="impl-step">
-            <div class="impl-num">${j+1}</div>
-            <div>
-              <div class="impl-text">${s.text}</div>
-              ${s.tools?`<div style="margin-top:4px">${s.tools.map(t=>`<span class="tool-tag">${t}</span>`).join('')}</div>`:''}
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    </div>`;
+  acc.innerHTML=`<div class="infra-head" onclick="toggleInfra(this)"><div style="display:flex;align-items:center;gap:12px"><div style="width:28px;height:28px;border-radius:8px;background:var(--tlG);border:1px solid var(--tlB);display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--tlL);flex-shrink:0">${i+1}</div><div><div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:600">${item.title}</div><div style="font-size:11px;color:var(--lg);margin-top:1px">${item.desc.substring(0,90)}...</div></div></div><span class="vid-arrow" style="flex-shrink:0">&#9656;</span></div><div class="infra-body"><div class="infra-content"><p style="font-size:12.5px;color:var(--sw);line-height:1.6;margin-top:12px;margin-bottom:4px">${item.desc}</p><div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--tl);letter-spacing:0.1em;text-transform:uppercase;margin:14px 0 4px">Implementation Steps</div>${item.steps.map((s,j)=>`<div class="impl-step"><div class="impl-num">${j+1}</div><div><div class="impl-text">${s.text}</div>${s.tools?`<div style="margin-top:4px">${s.tools.map(t=>`<span class="tool-tag">${t}</span>`).join('')}</div>`:''}</div></div>`).join('')}</div></div>`;
   infraEl.appendChild(acc);
 });
-
-function toggleInfra(head){
-  const acc=head.parentElement;
-  const wasOpen=acc.classList.contains('open');
-  document.querySelectorAll('.infra-acc').forEach(a=>a.classList.remove('open'));
-  if(!wasOpen)acc.classList.add('open');
-}
+function toggleInfra(head){const acc=head.parentElement;const w=acc.classList.contains('open');document.querySelectorAll('#infraAccordions .infra-acc').forEach(a=>a.classList.remove('open'));if(!w)acc.classList.add('open')}
 
 // =============================================
-// REACH CALCULATOR
+// REACH
 // =============================================
 document.getElementById('reachSlider').addEventListener('input',updateReach);
 function updateReach(){
   const p=parseInt(document.getElementById('reachSlider').value);
   const a=Math.round(35000*(p/100));
   const imp=a*500;
-  const cpi=imp>0?(5000/imp):0;
+  const eng=Math.round(imp*0.05);
   document.getElementById('reachPct').textContent=p+'%';
   document.getElementById('rAgents').textContent=a.toLocaleString();
   document.getElementById('rTotal').textContent=imp>=1e6?(imp/1e6).toFixed(1)+'M':imp>=1e3?Math.round(imp/1e3)+'K':imp.toLocaleString();
-  document.getElementById('rCost').textContent='$'+cpi.toFixed(3);
+  document.getElementById('rEngage').textContent=eng>=1e6?(eng/1e6).toFixed(1)+'M':eng>=1e3?Math.round(eng/1e3).toLocaleString()+'K':eng.toLocaleString();
 }
 </script>
 </body>
